@@ -1,3 +1,4 @@
+import math
 from tkinter import*
 from PIL import ImageTk,Image
 from math import*
@@ -7,7 +8,237 @@ from tkinter import ttk
 window = Tk()
 window.geometry('840x500')
 window.resizable(False,False)
-window.wm_attributes('-transparentcolor', '#ab23ff')
+
+def perimeter():
+    perimeter_window = Toplevel()
+    perimeter_window.title("Perimeter")
+    perimeter_window.resizable(False,False)
+    perimeter_window.geometry('840x500')
+
+    global perimeter_image
+    perimeter_image = PhotoImage(file='numbers/perimeterbg.png')
+    perimeter_canvas = Canvas(perimeter_window, width=800, height=500)
+    perimeter_canvas.pack(fill='both', expand=True)
+    perimeter_canvas.create_image(0, 0, image=perimeter_image, anchor=NW)
+    perimeter_canvas.create_text(370, 50, text="Perimeter", font=("Lemonade Stand", 30))
+
+    def per_clear():
+        P_entry_box1.delete(0,END)
+        P_entry_box2.delete(0, END)
+        P_entry_box3.delete(0, END)
+        perimeter_answer_label.configure(text = " ")
+    def per_calculate(shape):
+        if shape == "triangle":
+            if P_entry_box1.get() != " ":
+                valid = 0
+                try:
+                    A = float(P_entry_box1.get())
+                    valid = 1
+                except ValueError as e:
+                    messagebox.showinfo("Value Error", "PLease input a Number")
+                    P_entry_box1.delete(0, END)
+                    P_entry_box1.focus()
+            if P_entry_box1.get() != " " and valid == 1:
+                try:
+                    B = float(P_entry_box2.get())
+                    valid = 2
+                except ValueError as e:
+                    messagebox.showinfo("Value Error", "PLease input a Number")
+                    P_entry_box2.delete(0, END)
+                    P_entry_box2.focus()
+            if P_entry_box1.get() != " " and valid == 2:
+                try:
+                    C = float(P_entry_box3.get())
+                    valid = 3
+                except ValueError as e:
+                    messagebox.showinfo("Value Error", "PLease input a Number")
+                    P_entry_box3.delete(0, END)
+                    P_entry_box3.focus()
+            if valid == 3:
+                total = A + B + C
+                perimeter_answer_label.configure(text=total)
+
+        if shape == "square":
+            if P_entry_box1.get() != " ":
+                valid =0
+                try:
+                    s = float(P_entry_box1.get())
+                    valid = 1
+                except ValueError as e:
+                    messagebox.showinfo("Value Error", "PLease input a Number")
+                    P_entry_box1.delete(0, END)
+                    P_entry_box1.focus()
+            if valid == 1:
+                total = 4*s
+                perimeter_answer_label.configure(text=total)
+
+        if shape == "rectangle":
+            if P_entry_box1.get() != " ":
+                valid=0
+                try:
+                    l = float(P_entry_box1.get())
+                    valid = 1
+                except ValueError as e:
+                    messagebox.showinfo("Value Error", "PLease input a Number")
+                    P_entry_box1.delete(0, END)
+                    P_entry_box1.focus()
+            if P_entry_box1.get() != " " and valid == 1:
+                try:
+                    w = float(P_entry_box2.get())
+                    valid = 2
+                except ValueError as e:
+                    messagebox.showinfo("Value Error", "PLease input a Number")
+                    P_entry_box2.delete(0, END)
+                    P_entry_box2.focus()
+            if valid == 2:
+                total = (2*l) + (2*w)
+                perimeter_answer_label.configure(text=total)
+
+        if shape == "circle":
+            if P_entry_box1.get() != " ":
+                valid = 0
+                try:
+                    r = float(P_entry_box1.get())
+                    valid = 1
+                except ValueError as e:
+                    messagebox.showinfo("Value Error", "PLease input a Number")
+                    P_entry_box1.delete(0, END)
+                    P_entry_box1.focus()
+            if valid == 1:
+                total = 2*3.14*r
+                perimeter_answer_label.configure(text=total)
+
+
+
+
+
+    def per_operation(event):
+        global per_shape_name
+        global per_shape
+
+        if (perimeter_combo.get()=="Triangle"):
+            per_shape_name = "triangle"
+            per_shape_label.configure(text="Triangle")
+            per_shape = PhotoImage(file='numbers/ptriangle.png')
+            plabel = Label(perimeter_canvas,image=per_shape)
+            perimeter_canvas.create_window(680,230,window=plabel)
+            per_formula_label.configure(text="Formula: A + B + C")
+
+            P_entry_box1_label.configure(text="A:")
+            P_entry_box1.configure(state=NORMAL)
+            P_entry_box2_label.configure(text="B:")
+            P_entry_box2.configure(state=NORMAL)
+            P_entry_box3_label.configure(text="C:")
+            P_entry_box3.configure(state=NORMAL)
+
+            per_button_calcul8.configure(state=NORMAL)
+
+
+
+        elif (perimeter_combo.get()=="Square"):
+            per_shape_name = "square"
+            per_shape_label.configure(text="Square")
+            per_shape = PhotoImage(file='numbers/psquare.png')
+            plabel = Label(perimeter_canvas,image=per_shape)
+            perimeter_canvas.create_window(680,230,window=plabel)
+            per_formula_label.configure(text="Formula: 4 x S")
+
+            P_entry_box1_label.configure(text="S:")
+
+            P_entry_box2.configure(state=DISABLED)
+            P_entry_box2.configure(bg="#ACD0C2")
+            P_entry_box2_label.configure(text="                                                                                                ")
+            P_entry_box3.configure(state=DISABLED)
+            P_entry_box3_label.configure(text="                                                                                                ")
+            P_entry_box3.configure(bg="#ACD0C2")
+            per_button_calcul8.configure(state=NORMAL)
+
+        elif (perimeter_combo.get()=="Rectangle"):
+            per_shape_name = "rectangle"
+            per_shape_label.configure(text="Rectangle")
+            per_shape = PhotoImage(file='numbers/prect.png')
+            plabel = Label(perimeter_canvas,image=per_shape)
+            perimeter_canvas.create_window(680,230,window=plabel)
+            per_formula_label.configure(text="Formula: 2l + 2w")
+
+            P_entry_box1_label.configure(text="L:")
+
+            P_entry_box2_label.configure(text="W:")
+            P_entry_box3.configure(state=DISABLED)
+            P_entry_box3_label.configure(text="                                                                                                ")
+            P_entry_box3.configure(bg="#ACD0C2")
+            per_button_calcul8.configure(state=NORMAL)
+
+        elif (perimeter_combo.get()=="Circle"):
+            per_shape_name = "circle"
+            per_shape_label.configure(text="Circle")
+            per_shape = PhotoImage(file='numbers/circle.png')
+            plabel = Label(perimeter_canvas,image=per_shape)
+            perimeter_canvas.create_window(680,245,window=plabel)
+            per_formula_label.configure(text="Formula: 2πr")
+
+            P_entry_box1_label.configure(text="r:")
+
+            P_entry_box2.configure(state=DISABLED)
+            P_entry_box2.configure(bg="#ACD0C2")
+            P_entry_box2_label.configure(text="                                                                                                ")
+            P_entry_box3.configure(state=DISABLED)
+            P_entry_box3_label.configure(text="                                                                                                ")
+            P_entry_box3.configure(bg="#ACD0C2")
+            per_button_calcul8.configure(state=NORMAL)
+
+        elif (perimeter_combo.get() == "Select Shape"):
+            per_button_calcul8.configure(state=DISABLED)
+            per_formula_label.configure(text="Select a Shape!")
+            P_entry_box1_label.configure(text="                                                                                                ")
+            P_entry_box2_label.configure(text="                                                                                                ")
+            P_entry_box3_label.configure(text="                                                                                                ")
+
+            P_entry_box1.configure(state=DISABLED)
+            P_entry_box2.configure(state=DISABLED)
+            P_entry_box3.configure(state=DISABLED)
+
+
+    perimeter_combo = ttk.Combobox(perimeter_window, font=("Lemonade Stand", 15), width=15, state="readonly")
+    perimeter_combo['values'] = ("Select Shape", "Triangle", "Square", "Rectangle", "Circle")
+    perimeter_combo.current(0)
+    perimeter_canvas.create_text(140, 130, text="Select a shape:", font=("Lemonade Stand", 15))
+    perimeter_combo.bind('<<ComboboxSelected>>', per_operation)
+    perimeter_canvas.create_window(300, 130, window=perimeter_combo)
+
+    per_shape_label = Label(perimeter_window,text=" Shape ", font=("Papaya sunrise",20))
+    perimeter_canvas.create_window(590,110,window=per_shape_label)
+
+    per_formula_label = Label(perimeter_window, text=" Select a Shape!!! ", font=("Quick Pencil", 30),bg="#ACD0C2")
+    perimeter_canvas.create_window(230, 190, window=per_formula_label)
+
+    perimeter_label = Label(perimeter_canvas, text="Perimeter:", font=("Lemonade Stand", 20),bg="#ACD0C2")
+    perimeter_label_window = perimeter_canvas.create_window(140, 450, window=perimeter_label)
+    perimeter_answer_label = Label(perimeter_canvas, text="   ", font=("Lemonade Stand", 20),bg="#ACD0C2")
+    perimeter_answer_window = perimeter_canvas.create_window(260, 450, window=perimeter_answer_label)
+
+    per_button_calcul8 = Button(perimeter_window, text="Calcul8", font=("Lemonade Stand", 10), bg="#f2cd2f", borderwidth=10, state=DISABLED, command=lambda : per_calculate(per_shape_name))
+    perimeter_canvas.create_window(620, 430, window=per_button_calcul8)
+
+    button_pclear = Button(perimeter_window, text="Clear", font=("Lemonade Stand", 10), bg="red", borderwidth=10,command=per_clear)
+    perimeter_canvas.create_window(690, 430, window=button_pclear)
+
+    P_entry_box1 = Entry(perimeter_window,font=("Lemonade Stand", 20), borderwidth=5, width=8)
+    P_entry_box1_window = perimeter_canvas.create_window(270,240,window=P_entry_box1)
+    P_entry_box1_label = Label(perimeter_window,font=("Lemonade Stand", 20),text="                                                                                                ",bg="#ACD0C2",state=DISABLED)
+    P_entry_box1_label_wind = perimeter_canvas.create_window(150,240,window=P_entry_box1_label)
+
+    P_entry_box2 = Entry(perimeter_window,font=("Lemonade Stand", 20), borderwidth=5, width=8)
+    P_entry_box2_window = perimeter_canvas.create_window(270,295,window=P_entry_box2)
+    P_entry_box2_label = Label(perimeter_window,font=("Lemonade Stand", 20),text="                                                                                                ",bg="#ACD0C2",state=DISABLED)
+    P_entry_box2_label_wind = perimeter_canvas.create_window(150,295,window=P_entry_box2_label)
+
+    P_entry_box3 = Entry(perimeter_window,font=("Lemonade Stand", 20), borderwidth=5, width=8)
+    P_entry_box3_window = perimeter_canvas.create_window(270,360,window=P_entry_box3)
+    P_entry_box3_label = Label(perimeter_window,font=("Lemonade Stand", 20),text="                                                                                                ",state=DISABLED,bg="#ACD0C2")
+    P_entry_box3_label_wind = perimeter_canvas.create_window(150,360,window=P_entry_box3_label)
+
+
 
 def area():
     area_window = Toplevel()
@@ -24,14 +255,14 @@ def area():
 
     global shape_name
     global shape
-    global entry_box_1_window
-    global entry_box_1
-    global entrybox1_label
-    global entrybox1_label_window
-    global entry_box_2
-    global entry_box_2_window
-    global entrybox2_label
-    global entrybox2_label_window
+    #global entry_box_1_window
+    #global entry_box_1
+    #global entrybox1_label
+    #global entrybox1_label_window
+    #global entry_box_2
+    #global entry_box_2_window
+    #global entrybox2_label
+    #global entrybox2_label_window
 
     def clear():
         entry_box_1.delete(0,END)
@@ -110,14 +341,14 @@ def area():
     def Operation(event):
         global shape_name
         global shape
-        global entry_box_1_window
-        global entry_box_1
-        global entrybox1_label
-        global entrybox1_label_window
-        global entry_box_2
-        global entry_box_2_window
-        global entrybox2_label
-        global entrybox2_label_window
+        #global entry_box_1_window
+        #global entry_box_1
+        #global entrybox1_label
+        #global entrybox1_label_window
+        #global entry_box_2
+        #global entry_box_2_window
+        #global entrybox2_label
+        #global entrybox2_label_window
 
 
         if (combo.get()=="Triangle"):
@@ -134,6 +365,8 @@ def area():
             #height
             entrybox2_label.configure(text="Height")
             entry_box_2.configure(state=NORMAL)
+
+            button_calcul8.configure(state=NORMAL)
 
         elif (combo.get()=="Square"):
             shape_name = 'square'
@@ -176,14 +409,17 @@ def area():
             entrybox1_label.configure(text="Radius:")
             entrybox2_label.configure(text=" Circles are made of points!!!           ")
             entry_box_2.configure(state=DISABLED)
-
-
-
-
+        elif (combo.get() == "Select Shape"):
+            button_calcul8.configure(state=DISABLED)
+            formula_label.configure(text="Select a Shape!")
+            entrybox1_label.configure(text="")
+            entrybox2_label.configure(text="")
+            entry_box_1.configure(state=DISABLED)
+            entry_box_2.configure(state=DISABLED)
 
 
     combo=ttk.Combobox(area_window,font=("Lemonade Stand", 15),width=15,state="readonly")
-    combo['values']= ("Triangle", "Square", "Rectangle", "Circle")
+    combo['values']= ("Select Shape","Triangle", "Square", "Rectangle", "Circle")
     combo.current(0)
     area_canvas.create_text(570,130,text="Select a shape:",font=("Lemonade Stand", 15))
     combo.bind('<<ComboboxSelected>>', Operation)
@@ -200,11 +436,11 @@ def area():
     area_answer_label = Label(area_canvas, text=" ", font=("Lemonade Stand", 20))
     area_label_window = area_canvas.create_window(630, 410, window=area_answer_label)
 
-    button_calcul8 = Button(area_window,text="Calcul8",font=("Lemonade Stand", 10), bg="#f2cd2f",borderwidth=10,command=lambda :calculate(shape_name))
+    button_calcul8 = Button(area_window,text="Calcul8",font=("Lemonade Stand", 10), bg="#f2cd2f",borderwidth=10,command=lambda :calculate(shape_name), state= DISABLED)
     area_canvas.create_window(530,460,window=button_calcul8)
 
-    button_clear = Button(area_window,text="Clear", font=("Lemonade Stand", 10), bg="red",borderwidth=10,command=clear)
-    area_canvas.create_window(620, 460, window=button_clear)
+    button_aclear = Button(area_window,text="Clear", font=("Lemonade Stand", 10), bg="red",borderwidth=10,command=clear)
+    area_canvas.create_window(620, 460, window=button_aclear)
 
 
     entry_box_1 = Entry(area_window, font=("Lemonade Stand", 20), borderwidth=5, width=8)
@@ -261,19 +497,30 @@ def quadratic():
                 entrybox_C.focus()
 
         if valid == 3:
-            total_1 = ((b*b)+(4*a*c))**0.5/2*a
-            total_1 = abs(total_1)
-            total_2 = ((b*b)-(4*a*c))**0.5/2*a
-            total_2 = abs(total_2)
+            b4ac = ((b**2) - (4*a*c))
+
+            if b4ac > 0:
+                sqr = math.sqrt(b4ac)
+                z1 = (-b + sqr)/(2*a)
+                (z1.real)
+                z2 = (-b - sqr) / (2 * a)
+                (z2.real)
+            else:
+                b4ac = b4ac*-1
+                sqr = math.sqrt(b4ac)*-1
+                z1 = (-b + complex(0,sqr))/(2*a)
+                (z1.imag)
+                z2 = (-b - complex(0, sqr)) / (2 * a)
+                (z2.imag)
             entrybox_A.delete(0,END)
             entrybox_B.delete(0, END)
             entrybox_C.delete(0, END)
 
-            label_xsub1 = Label(quad_window,text=f"x₁ = {total_1}", font=("Quick Pencil", 40))
-            quadbg_canvas.create_window(280,350,window=label_xsub1)
+            label_xsub1 = Label(quad_window,text="X1: {0:.3f}".format(z1), font=("Quick Pencil", 40))
+            quadbg_canvas.create_window(300,350,window=label_xsub1)
 
-            label_xsub2 = Label(quad_window, text=f"x₂ = {total_2}", font=("Quick Pencil", 40))
-            quadbg_canvas.create_window(280, 400, window=label_xsub2)
+            label_xsub2 = Label(quad_window, text="X2: {0:.3f}".format(z2), font=("Quick Pencil", 40))
+            quadbg_canvas.create_window(300, 400, window=label_xsub2)
 
             label_line = Label(quad_window, text="____________", font=("Verdana", 30))
             quadbg_canvas.create_window(450, 260, window=label_line)
@@ -363,7 +610,7 @@ canvas.create_text(400,320,text="Area of a Polygon",font=("Lemonade Stand",12))
 
 #perimeter button
 button_perimeter_img = PhotoImage(file='numbers/perimeter.png')
-button_perimeter = Button(window,image=button_perimeter_img,border=0,height=100, bg="orange")
+button_perimeter = Button(window,image=button_perimeter_img,border=0,height=100, bg="orange",command=perimeter)
 button_perimeter_window = canvas.create_window(550,250,window=button_perimeter)
 canvas.create_text(550,320,text="Perimeter of a Polygon",font=("Lemonade Stand",12))
 
