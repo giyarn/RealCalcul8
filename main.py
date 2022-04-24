@@ -224,8 +224,6 @@ def arithmetic():
     else:
         messagebox.showinfo("Error","A Window is running")
         counter -=1
-
-
 def perimeter():
     global counter
     if counter < 5:
@@ -336,6 +334,10 @@ def perimeter():
             global per_shape
 
             if (perimeter_combo.get()=="Triangle"):
+                P_entry_box1.delete(0, END)
+                P_entry_box2.delete(0, END)
+                P_entry_box3.delete(0, END)
+                perimeter_answer_label.configure(text=" ")
                 per_shape_name = "triangle"
                 per_shape_label.configure(text="Triangle")
                 per_shape = PhotoImage(file='numbers/ptriangle.png')
@@ -358,6 +360,10 @@ def perimeter():
 
 
             elif (perimeter_combo.get()=="Square"):
+                P_entry_box1.delete(0, END)
+                P_entry_box2.delete(0, END)
+                P_entry_box3.delete(0, END)
+                perimeter_answer_label.configure(text=" ")
                 per_shape_name = "square"
                 per_shape_label.configure(text="Square")
                 per_shape = PhotoImage(file='numbers/psquare.png')
@@ -377,6 +383,10 @@ def perimeter():
                 per_button_calcul8.configure(state=NORMAL)
 
             elif (perimeter_combo.get()=="Rectangle"):
+                P_entry_box1.delete(0, END)
+                P_entry_box2.delete(0, END)
+                P_entry_box3.delete(0, END)
+                perimeter_answer_label.configure(text=" ")
                 per_shape_name = "rectangle"
                 per_shape_label.configure(text="Rectangle")
                 per_shape = PhotoImage(file='numbers/prect.png')
@@ -396,6 +406,10 @@ def perimeter():
                 per_button_calcul8.configure(state=NORMAL)
 
             elif (perimeter_combo.get()=="Circle"):
+                P_entry_box1.delete(0, END)
+                P_entry_box2.delete(0, END)
+                P_entry_box3.delete(0, END)
+                perimeter_answer_label.configure(text=" ")
                 per_shape_name = "circle"
                 per_shape_label.configure(text="Circle")
                 per_shape = PhotoImage(file='numbers/circle.png')
@@ -415,6 +429,10 @@ def perimeter():
                 per_button_calcul8.configure(state=NORMAL)
 
             elif (perimeter_combo.get() == "Select Shape"):
+                P_entry_box1.delete(0, END)
+                P_entry_box2.delete(0, END)
+                P_entry_box3.delete(0, END)
+                perimeter_answer_label.configure(text=" ")
                 per_button_calcul8.configure(state=DISABLED)
                 per_formula_label.configure(text="Select a Shape!")
                 P_entry_box1_label.configure(text="                                                     ")
@@ -469,8 +487,6 @@ def perimeter():
         counter +=1
     else:
         messagebox.showinfo("Error","A window is running")
-
-
 def area():
     global counter
     counter = 1
@@ -488,16 +504,6 @@ def area():
         area_canvas.create_text(750, 70, text="Area", font=("Lemonade Stand", 30))
 
         global shape_name
-        global shape
-        #global entry_box_1_window
-        #global entry_box_1
-        #global entrybox1_label
-        #global entrybox1_label_window
-        #global entry_box_2
-        #global entry_box_2_window
-        #global entrybox2_label
-        #global entrybox2_label_window
-
         def clear():
             entry_box_1.delete(0,END)
             entry_box_2.delete(0,END)
@@ -579,15 +585,6 @@ def area():
         def Operation(event):
             global shape_name
             global shape
-            #global entry_box_1_window
-            #global entry_box_1
-            #global entrybox1_label
-            #global entrybox1_label_window
-            #global entry_box_2
-            #global entry_box_2_window
-            #global entrybox2_label
-            #global entrybox2_label_window
-
 
             if (combo.get()=="Triangle"):
                 shape_name = "triangle"
@@ -597,7 +594,11 @@ def area():
                 area_canvas.create_window(230,230,window=tlabel)
                 formula_label.configure(text="Formula: (1/2) (b x h)")
 
+
                 #base
+                entry_box_1.delete(0, END)
+                entry_box_2.delete(0, END)
+                area_answer_label.configure(text=" ")
                 entrybox1_label.configure(text="Base:")
                 entry_box_1.configure(state=NORMAL)
 
@@ -615,11 +616,16 @@ def area():
                 area_canvas.create_window(230, 230, window=tlabel)
                 formula_label.configure(text="Formula: S²")
 
+                entry_box_1.delete(0, END)
+                entry_box_2.delete(0, END)
+                area_answer_label.configure(text=" ")
+
                 entrybox1_label.configure(text="Side")
                 entry_box_1.configure(state=NORMAL)
                 entrybox2_label_window = area_canvas.create_window(630, 350, window=entrybox2_label)
                 entrybox2_label.configure(text= " Square has equal Sides!!!")
                 entry_box_2.configure(state=DISABLED)
+                button_calcul8.configure(state=NORMAL)
 
 
             elif (combo.get()=="Rectangle"):
@@ -632,13 +638,17 @@ def area():
                 formula_label.configure(text="Formula: l x w")
 
                 #length
+                entry_box_1.delete(0, END)
+                entry_box_2.delete(0, END)
+                area_answer_label.configure(text=" ")
+
                 entrybox1_label.configure(text="Length:")
                 entry_box_1.configure(state=NORMAL)
                 #hwight
                 entrybox2_label.configure(text="Width")
                 entrybox2_label_window = area_canvas.create_window(545, 350, window=entrybox2_label)
                 entry_box_2.configure(state=NORMAL)
-
+                button_calcul8.configure(state=NORMAL)
             elif (combo.get()=="Circle"):
                 shape_name = "circle"
                 area_canvas.delete("tlabel")
@@ -648,11 +658,15 @@ def area():
                 area_canvas.create_window(230, 230, window=tlabel)
                 formula_label.configure(text="Formula: πr²")
 
+                entry_box_1.delete(0, END)
+                entry_box_2.delete(0, END)
+                area_answer_label.configure(text=" ")
                 entrybox1_label.configure(text="Radius:")
                 entry_box_1.configure(state=NORMAL)
                 entrybox2_label_window = area_canvas.create_window(640, 350, window=entrybox2_label)
                 entrybox2_label.configure(text=" Circles are made of points!!!")
                 entry_box_2.configure(state=DISABLED)
+                button_calcul8.configure(state=NORMAL)
             elif (combo.get() == "Select Shape"):
                 button_calcul8.configure(state=DISABLED)
                 formula_label.configure(text="Select a Shape!")
@@ -660,6 +674,7 @@ def area():
                 entrybox2_label.configure(text="")
                 entry_box_1.configure(state=DISABLED)
                 entry_box_2.configure(state=DISABLED)
+
 
 
         combo=ttk.Combobox(area_window,font=("Lemonade Stand", 15),width=15,state="readonly")
@@ -727,7 +742,10 @@ def quadratic():
                     messagebox.showerror("ValueError", "Input must be a number")
                     entrybox_A.delete(0,END)
                     entrybox_A.focus()
-
+                if a < 1:
+                    messagebox.showerror("Valueerror", "a cannot be less than 0")
+                    entrybox_A.delete(0, END)
+                    entrybox_A.focus()
             if entrybox_B.get() != " " and valid == 1:
                 try:
                     b = int(entrybox_B.get())
