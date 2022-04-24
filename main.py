@@ -10,7 +10,66 @@ window.geometry('840x500')
 window.resizable(False,False)
 global counter
 counter = 1
+def fibonacci():
+    global counter
+    if counter < 5:
+        fibonacci_window = Toplevel()
+        fibonacci_window.title("Fibonacci Sequence")
+        fibonacci_window.resizable(False, False)
+        fibonacci_window.geometry('840x500')
+        global fibonacci_image
+        fibonacci_image = PhotoImage(file='numbers/fibonaccibg.png')
+        fibonacci_canvas = Canvas(fibonacci_window,width=800,height=500)
+        fibonacci_canvas.pack(fill='both', expand=True)
+        fibonacci_canvas.create_image(0,0,image=fibonacci_image,anchor = NW)
+        fibonacci_canvas.create_text(650, 30, text="Fibonacci Sequence", font=("Lemonade Stand", 30))
+        fibonacci_canvas.create_text(150, 100, text="Let's calculate a Fibonacci Sequence!", font=("Lemonade Stand", 15))
+        def fib_clear():
+            terms.delete(0, END)
+            fibonaccivalue_label.configure(text="")
+        def fib_calculate():
+            a = 0
+            b = 1
+            count = 0
+            n = int(terms.get())
 
+            if n <= 0:
+                messagebox.showerror('Error1', 'Enter number greater than 0')
+                terms.delete(0, END)
+                terms.focus()
+                return (n)
+            elif n > 150:
+                messagebox.showerror('Error1', 'Cannott compute n > 150')
+                terms.delete(0, END)
+                terms.focus()
+            elif n == 1:
+                fibonaccivalue_label.configure(text=a)
+            elif n >= 2:
+                fibonaccivalue_label.configure(text="{}".format(b))
+                for i in range(2, n):
+                    c = a + b
+                    fibonaccivalue_label.configure(text="{}".format(c))
+                    a = b
+                    b = c
+
+
+        fibonacci_canvas.create_text(120,270, text="Number of terms:", font=("Give Away",18))
+        terms = Entry(fibonacci_window,borderwidth=3,width=4, font=("Give Away",18))
+        term_window = fibonacci_canvas.create_window(270,270,window=terms)
+        fibonacci_canvas.create_text(120, 320, text="First term: 0", font=("Give Away",18))
+        fibonacci_canvas.create_text(120, 370, text="Second term: 1", font=("Give Away",18))
+
+        fibonacci_canvas.create_text(120, 220, text="Nth term value:", font=("Give Away",18))
+        fibonaccivalue_label = Label(fibonacci_canvas,text=" ",font=("Give Away",20),width=25,anchor=W)
+        fibval_window= fibonacci_canvas.create_window(450,220,window=fibonaccivalue_label)
+
+        fibonaccilabel = Label(fibonacci_canvas,text="Fn = Fn-1 + Fn-2 , where n > 0 ",font=("Give Away",20) )
+        fiblabel_window = fibonacci_canvas.create_window(400,170,window=fibonaccilabel)
+
+        fbutton_calcul8 = Button(fibonacci_window, text="Calcul8",bg="#f2cd2f", font=("Lemonade Stand", 10), borderwidth=10,command=fib_calculate)
+        fibonacci_canvas.create_window(640,440,window=fbutton_calcul8)
+        fbutton_clear = Button(fibonacci_window, text="Clear", bg="red", font=("Lemonade Stand", 10),borderwidth=10,command=fib_clear)
+        fibonacci_canvas.create_window(730, 440, window=fbutton_clear)
 def arithmetic():
     global  counter
     if counter < 5:
@@ -24,99 +83,104 @@ def arithmetic():
         arithmetic_canvas = Canvas(arithmetic_window, width=800, height=500)
         arithmetic_canvas.pack(fill='both', expand=True)
         arithmetic_canvas.create_image(0, 0, image=arithmetic_image, anchor=NW)
-        arithmetic_canvas.create_text(650, 30, text="Number Sequence", font=("Lemonade Stand", 30))
-
+        arithmetic_canvas.create_text(650, 30, text="Arithmetic Sequence", font=("Lemonade Stand", 30))
         arithmetic_canvas.create_text(260,90,text="Enter the sequence", font=("Lemonade Stand", 15))
-
+        def arith_clear():
+            entry1.delete(0, END)
+            entry2.delete(0, END)
+            entry3.delete(0, END)
+            entry4.delete(0, END)
+            entry5.delete(0, END)
+            nq_n_entry.delete(0,END)
+            nq_dans_label.configure(text="")
+            nq_term1ans_label.configure(text="")
+            nq_anansw_label.configure(text="")
+            nq_snansw_label.configure(text="")
         def arith_calculate():
-            valid = 0
-            if entry1.get() != " ":
+            if entry1.get()!=" ":
+                valid = 0
                 try:
                     a1 = float(entry1.get())
                     valid = 1
                 except ValueError as e:
-                    messagebox.showinfo("Value Error", "Input must be a number")
+                    messagebox.showinfo("ValueError", "Input must be a number")
                     entry1.delete(0,END)
                     entry1.focus()
                 if valid == 1:
-                    nq_term1ans_label.configure(text=a1)
-            if entry2.get() != " ":
-                try:
-                    d = float(entry2.get()) - float(entry1.get())
-                    valid = 1
-                except ValueError as e:
-                    messagebox.showinfo("Value Error", "Input must be a number")
-                    entry2.delete(0,END)
-                    entry2.focus()
-                if entry3.get() != "":
+                    try:
+                        a2 = float(entry2.get())
+                        valid=2
+                    except ValueError as e:
+                        messagebox.showinfo("ValueError", "Input must be a number")
+                        entry2.delete(0, END)
+                        entry2.focus()
+                if valid == 2:
                     try:
                         a3 = float(entry3.get())
+                        valid=3
                     except ValueError as e:
-                        messagebox.showinfo("Value Error", "Input must be a number")
+                        messagebox.showinfo("ValueError", "Input must be a number")
                         entry3.delete(0, END)
                         entry3.focus()
-                if entry4.get() != "":
+                if valid == 3:
                     try:
                         a4 = float(entry4.get())
-                        valid = 1
+                        valid=4
                     except ValueError as e:
-                        messagebox.showinfo("Value Error", "Input must be a number")
+                        messagebox.showinfo("ValueError", "Input must be a number")
                         entry4.delete(0, END)
                         entry4.focus()
-                if entry5.get() != "":
+                if valid == 4:
                     try:
                         a5 = float(entry5.get())
-                        valid = 1
+                        valid=5
                     except ValueError as e:
-                        messagebox.showinfo("Value Error", "Input must be a number")
+                        messagebox.showinfo("ValueError", "Input must be a number")
                         entry5.delete(0, END)
                         entry5.focus()
-                #if float(entry2.get()) - float(entry1.get()) != float(entry3.get()) - float(entry2.get()) and float(entry5.get()) - float(entry4.get()) != float(entry4.get()) - float(entry3.get()):
-                   messagebox.showinfo("Error", "this is not a Aritmetic sequence")
-                    entry1.delete(0, END)
-                    entry2.delete(0, END)
-                    entry3.delete(0, END)
-                    entry4.delete(0, END)
-                    entry5.delete(0, END)
-                    nq_n_entry.delete(0, END)
-                    entry1.focus()
-                    entry2.focus()
-                    entry4.focus()
-                    entry3.focus()
-                    entry5.focus()
-                    nq_n_entry.focus()
-                else:
-                    if valid == 1:
+                if valid == 5:
+                    values = [a1, a2, a3, a4, a5]
+                    d = a2 - a1
+                    arith = True
+                    for i in range(2, len(values)):
+                        if values[i] - values[i - 1] != d:
+                            arith = False
+                    if arith == False:
+                        messagebox.showinfo("Error 101", "Sequence is not Arithmetic")
+                        entry1.delete(0, END)
+                        entry2.delete(0, END)
+                        entry3.delete(0, END)
+                        entry4.delete(0, END)
+                        entry5.delete(0, END)
+                        entry1.focus()
+                        entry2.focus()
+                        entry3.focus()
+                        entry4.focus()
+                        entry5.focus()
+                    else:
+                        try:
+                            n = float(nq_n_entry.get())
+                            valid = 6
+                        except ValueError as e:
+                            messagebox.showinfo("ValueError", "Input must be a number")
+                            nq_n_entry.delete(0, END)
+                            nq_n_entry.focus()
+                    if valid == 6:
                         nq_dans_label.configure(text=d)
-
-            if nq_n_entry.get() != "":
-                valid =0
-                try:
-                    n = float(nq_n_entry.get())
-                    valid = 1
-                except ValueError as e:
-                    messagebox.showinfo("Value Error", "Input must be a number")
-                    nq_n_entry.delete(0,END)
-                    nq_n_entry.focus()
-
-                if valid == 1:
-                    an = a1 + (n-1)*d
-                    sn = (n/2)*((2*a1) + ((n-1)*d))
-                    nq_anansw_label.configure(text=an)
-                    nq_snansw_label.configure(text=sn)
-
-
+                        nq_term1ans_label.configure(text=a1)
+                        nq_anansw_label.configure(text = a1 + (n-1)*d)
+                        nq_snansw_label.configure(text=(n/2)*((2*a1)+((n-1)*d)))
 
         #term1
         nq_term1_label = Label(arithmetic_window,text="a₁:", font=("Give Away",20),bg="#FEFAEE")
         nq_term1label_window = arithmetic_canvas.create_window(200,350,window=nq_term1_label)
-        nq_term1ans_label = Label(arithmetic_window,text=" ",font=("Give Away",20))
+        nq_term1ans_label = Label(arithmetic_window,text=" ",font=("Give Away",20),width=5)
         n1_term1entry_window = arithmetic_canvas.create_window(260,350,window=nq_term1ans_label)
         arithmetic_canvas.create_text(375, 350, text="---first term", font=("Give Away", 17))
         #commondiff
         nq_d_label = Label(arithmetic_window,text="d:", font=("Give Away",20),bg="#FEFAEE")
         nq_dlabel_window = arithmetic_canvas.create_window(200,300,window=nq_d_label)
-        nq_dans_label = Label(arithmetic_window,text=" ",font=("Give Away",20))
+        nq_dans_label = Label(arithmetic_window,text=" ",font=("Give Away",20),width=5)
         n1_dlabel_window = arithmetic_canvas.create_window(260,300,window=nq_dans_label)
         arithmetic_canvas.create_text(420, 300, text="---common difference", font=("Give Away", 17))
         #nth
@@ -128,13 +192,13 @@ def arithmetic():
         #an
         nq_an_label = Label(arithmetic_window,text="an:", font=("Give Away",20),bg="#FEFAEE")
         nq_anlabel_window = arithmetic_canvas.create_window(200,400,window=nq_an_label)
-        nq_anansw_label = Label(arithmetic_window,text=" ",font=("Give Away",20))
+        nq_anansw_label = Label(arithmetic_window,text=" ",font=("Give Away",20),width=5)
         nq_anlabel_window = arithmetic_canvas.create_window(260,400,window=nq_anansw_label)
         arithmetic_canvas.create_text(375, 400, text="---nth term", font=("Give Away", 17))
         #sn
         nq_sn_label = Label(arithmetic_window,text="Sn:", font=("Give Away",20),bg="#FEFAEE")
         nq_snlabel_window = arithmetic_canvas.create_window(200,450,window=nq_sn_label)
-        nq_snansw_label = Label(arithmetic_window,text=" ",font=("Give Away",20))
+        nq_snansw_label = Label(arithmetic_window,text=" ",font=("Give Away",20),width=5)
         n1_snlabel_window = arithmetic_canvas.create_window(260,450,window=nq_snansw_label)
         arithmetic_canvas.create_text(430, 450, text="---sum of all the terms", font=("Give Away", 17))
         #entryboxes
@@ -153,11 +217,8 @@ def arithmetic():
         #buttoncalcul8
         abutton_calcul8 = Button(arithmetic_window, text="Calcul8",bg="#f2cd2f", font=("Lemonade Stand", 10), borderwidth=10,command=arith_calculate)
         arithmetic_canvas.create_window(640,440,window=abutton_calcul8)
-        abutton_clear = Button(arithmetic_window, text="Clear", bg="red", font=("Lemonade Stand", 10),borderwidth=10)
+        abutton_clear = Button(arithmetic_window, text="Clear", bg="red", font=("Lemonade Stand", 10),borderwidth=10,command=arith_clear)
         arithmetic_canvas.create_window(730, 440, window=abutton_clear)
-
-
-
 
         counter +=1
     else:
@@ -809,7 +870,7 @@ canvas.create_text(550,320,text="Perimeter of a Polygon",font=("Lemonade Stand",
 
 #fibonacci button
 button_fibonacci_img = PhotoImage(file='numbers/fibonacci.png')
-button_fibonacci = Button(window,image=button_fibonacci_img,border=0)
+button_fibonacci = Button(window,image=button_fibonacci_img,border=0,command=fibonacci)
 button_fibonacci_window = canvas.create_window(320,400,window=button_fibonacci)
 canvas.create_text(320,470,text="Fibonacci Sequence",font=("Lemonade Stand",12))
 
